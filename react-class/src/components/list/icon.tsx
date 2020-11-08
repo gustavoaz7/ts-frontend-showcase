@@ -1,20 +1,25 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { PRIMARY_COLOR } from '../../styles';
+import { PRIMARY_BLUE } from '../../styles';
 import check from '../../assets/check.png';
 
 type IconProps = {
   visible?: boolean;
   checkmark?: boolean;
+  color?: string;
 }
 
-export const Icon: FC<IconProps> = ({ visible, checkmark }) => {
+export const Icon: FC<IconProps> = ({
+  visible = false,
+  checkmark = false,
+  color = PRIMARY_BLUE,
+}) => {
   if (!visible) {
     return null;
   }
 
   return (
-    <StyledIcon>
+    <StyledIcon color={color}>
       {checkmark && (
         <Check src={check} />
       )}
@@ -22,8 +27,8 @@ export const Icon: FC<IconProps> = ({ visible, checkmark }) => {
   );
 };
 
-const StyledIcon = styled.div`
-  background-color: ${PRIMARY_COLOR};
+const StyledIcon = styled.div<{color?: string}>`
+  background-color: ${({ color }) => color};
   width: 30px;
   height: 30px;
   border-radius: 30px;

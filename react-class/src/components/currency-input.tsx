@@ -1,7 +1,7 @@
 import React, { FC, ChangeEvent } from 'react';
 import styled from 'styled-components';
 import {
-  PRIMARY_COLOR,
+  PRIMARY_BLUE,
   LIGHT_GRAY,
   GRAY,
   DARK_GRAY,
@@ -83,7 +83,7 @@ const Separator = styled.div`
 `;
 
 const Text = styled.span`
-  color: ${PRIMARY_COLOR};
+  color: ${PRIMARY_BLUE};
   font-size: 20px;
   font-weight: 600;
   padding: 0 12px;
