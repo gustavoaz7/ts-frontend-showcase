@@ -1,8 +1,9 @@
 import React from 'react';
+import { Home } from './pages/home'
 
 function App() {
   return (
-    <h1>Hellow World</h1>
+    <Home />
   );
 }
 
