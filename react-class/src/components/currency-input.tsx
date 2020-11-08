@@ -1,10 +1,11 @@
 import React, { FC, ChangeEvent } from 'react';
 import styled from 'styled-components';
-
-const PRIMARY_COLOR = '#4F6D7A';
-const LIGHT_GRAY = '#F0F0F0';
-const GRAY = '#979797';
-const DARK_GRAY = '#797979';
+import {
+  PRIMARY_COLOR,
+  LIGHT_GRAY,
+  GRAY,
+  DARK_GRAY,
+} from '../styles'
 
 type CurrencyInputProps = {
   currency: string;
