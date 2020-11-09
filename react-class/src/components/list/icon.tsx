@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { PRIMARY_BLUE } from '../../styles';
 import check from '../../assets/check.png';
 
 type IconProps = {
@@ -12,7 +11,7 @@ type IconProps = {
 export const Icon: FC<IconProps> = ({
   visible = false,
   checkmark = false,
-  color = PRIMARY_BLUE,
+  color,
 }) => {
   if (!visible) {
     return null;

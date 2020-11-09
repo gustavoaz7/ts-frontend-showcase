@@ -1,33 +1,23 @@
-import React, { FC, MouseEvent } from 'react';
+import React from 'react';
 import styled from 'styled-components'
+import { Link } from "react-router-dom";
 import gear from '../assets/gear.png'
+import { ROUTES } from '../config/routes';
 
-type HeaderProps = {
-  onClick(event: MouseEvent): void;
-}
 
-export const Header: FC<HeaderProps> = ({ onClick = () => {} }) => (
-  <Container>
-    <Button onClick={onClick}>
-      <Image src={gear} />
-    </Button>
+export const Header = () => (
+  <Container to={ROUTES.OPTIONS}>
+    <Image src={gear} />
   </Container>
 );
 
 const GEAR_SIZE = 20;
-const Container = styled.div`
+const Container = styled(Link)`
   position: absolute;
-  top: 0;
-  right: 0;
-`;
-
-const Button = styled.div`
+  top: 10px;
+  right: 10px;
   cursor: pointer;
-  align-self: flex-end;
   border-radius: ${GEAR_SIZE}px;
-  overflow: hidden;
-  margin-right: 10px;
-  margin-top: 10px;
 `;
 
 const Image = styled.img`

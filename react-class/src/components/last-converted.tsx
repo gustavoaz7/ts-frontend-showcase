@@ -13,7 +13,7 @@ type LastConvertedProps = {
 export const LastConverted: FC<LastConvertedProps> = ({ base, quote, rate, date }) => (
   <Container>
     <Text>
-      {`1 ${base} = ${rate} ${quote} as of ${format(date, 'MMMM, dd, yyyy')}`}
+      {`1 ${base} = ${rate} ${quote} as of ${format(date, 'MMM, dd, yyyy')}`}
     </Text>
   </Container>
 );

@@ -32,7 +32,7 @@ export class Home extends Component {
     const { baseCurrency, quoteCurrency } = this.state;
     return (
       <Wrapper>
-        <Header onClick={() => {}} />
+        <Header />
         <Logo />
         <CurrencyInput
           currency={BASE_CURRENCY}
@@ -65,6 +65,7 @@ const Wrapper = styled.div`
   flex: 1;
   align-items: center;
   justify-content: center;
+  padding: 0 10px;
   background-color: #4F6D7A;
 `;
 
