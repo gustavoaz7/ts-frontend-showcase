@@ -1,5 +1,6 @@
 import React, { FC, ChangeEvent } from 'react';
 import styled from 'styled-components';
+import { TCurrencies } from '../config/currencies';
 import {
   PRIMARY_BLUE,
   LIGHT_GRAY,
@@ -8,7 +9,7 @@ import {
 } from '../styles'
 
 type CurrencyInputProps = {
-  currency: string;
+  currency: TCurrencies;
   onClick: () => void;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   disabled?: boolean;

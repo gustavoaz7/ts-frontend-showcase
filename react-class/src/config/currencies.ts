@@ -15,6 +15,7 @@ export const currencies = [
   'IDR',
   'ILS',
   'INR',
+  'ISK',
   'JPY',
   'KRW',
   'MXN',
@@ -33,4 +34,4 @@ export const currencies = [
   'ZAR',
 ] as const;
 
-export type TCurrency = typeof currencies;
+export type TCurrencies = typeof currencies[number];

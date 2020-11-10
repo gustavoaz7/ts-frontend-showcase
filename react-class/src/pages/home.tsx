@@ -1,63 +1,100 @@
 import React, { Component } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
 import styled from 'styled-components'
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import { Logo } from '../components/logo';
 import { CurrencyInput } from '../components/currency-input';
 import { ClearButton } from '../components/clear-button';
 import { LastConverted } from '../components/last-converted';
 import { Header } from '../components/header';
+import { RootState } from '../redux/store';
+import { swapCurrencyAC, changeCurrencyAmountAC } from '../redux/actions/currency';
+import {
+  amountSelector,
+  baseCurrencySelector,
+  quoteCurrencySelector,
+  conversionsSelector,
+} from '../redux/selectors/currency';
+import { ROUTES } from '../config/routes';
 
 
-const BASE_CURRENCY = 'BRL';
-const BASE_PRICE = '1';
-const CONV_CURRENCY = 'USD';
-const CONV_PRICE = '0.25';
-const CONV_RATE = 0.25;
-const CONV_DATE = new Date();
+const mapState = (state: RootState) => ({
+  amount: amountSelector(state),
+  baseCurrency: baseCurrencySelector(state),
+  quoteCurrency: quoteCurrencySelector(state),
+  conversions: conversionsSelector(state),
+});
 
-export class Home extends Component {
-  state = {
-    baseCurrency: BASE_PRICE,
-    quoteCurrency: CONV_PRICE,
-  }
+const mapDispatch = {
+  swapCurrency: swapCurrencyAC,
+  changeCurrencyAmount: changeCurrencyAmountAC,
+};
 
-  handleChangeBaseCurrency = (event: React.ChangeEvent<HTMLInputElement>) => (
-    this.setState({baseCurrency: event.target.value})
+const connector = connect(
+  mapState,
+  mapDispatch
+);
+
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+type HomeProps = PropsFromRedux & RouteComponentProps;
+
+class HomeClass extends Component<HomeProps, {}> {
+  goToCurrencyList = () => (
+    this.props.history.push(ROUTES.CURRENCIES)
   );
 
   handleChangeQuoteCurrency = (event: React.ChangeEvent<HTMLInputElement>) => (
     this.setState({quoteCurrency: event.target.value})
   );
 
+  handleCurrencyChange = (event: React.ChangeEvent<HTMLInputElement>) => (
+    this.props.changeCurrencyAmount(+event.target.value)
+  );
+
   render() {
-    const { baseCurrency, quoteCurrency } = this.state;
+    const {
+      baseCurrency,
+      quoteCurrency,
+      amount,
+      conversions,
+      swapCurrency,
+    } = this.props;
+    const conversionSelector = conversions[baseCurrency];
+    const conversionDate = new Date(conversionSelector?.date ?? Date.now());
+    console.log('!!TCL: HomeClass -> render -> conversionDate', conversionDate);
+    const conversionRate: number = (conversionSelector?.rates?.[quoteCurrency] ?? 0);
+    const quotePrice = (amount * conversionRate).toFixed(2);
+
     return (
       <Wrapper>
         <Header />
         <Logo />
         <CurrencyInput
-          currency={BASE_CURRENCY}
-          value={baseCurrency}
-          onClick={() => {}}
-          onChange={this.handleChangeBaseCurrency}
+          currency={baseCurrency}
+          value={amount.toString()}
+          onClick={this.goToCurrencyList}
+          onChange={this.handleCurrencyChange}
         />
         <CurrencyInput
-          currency={CONV_CURRENCY}
+          currency={quoteCurrency}
           disabled
-          value={quoteCurrency}
-          onClick={() => {}}
-          onChange={this.handleChangeQuoteCurrency}
+          value={quotePrice}
+          onClick={this.goToCurrencyList}
         />
         <LastConverted
-          base={BASE_CURRENCY}
-          quote={CONV_CURRENCY}
-          rate={CONV_RATE}
-          date={CONV_DATE}
+          base={baseCurrency}
+          quote={quoteCurrency}
+          rate={conversionRate}
+          date={conversionDate}
         />
-        <StyledClearButton text={'Reverse Currencies'} onClick={() => {}} />
+        <StyledClearButton text={'Reverse Currencies'} onClick={swapCurrency} />
       </Wrapper>
     )
   }
 }
+
+export const Home = connector(withRouter(HomeClass));
 
 const Wrapper = styled.div`
   display: flex;
