@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import styled from 'styled-components'
+import { StaticContext } from 'react-router';
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { Logo } from '../components/logo';
 import { CurrencyInput } from '../components/currency-input';
@@ -15,7 +16,7 @@ import {
   quoteCurrencySelector,
   conversionsSelector,
 } from '../redux/selectors/currency';
-import { ROUTES } from '../config/routes';
+import { ROUTES, TCurrenciesRouteState } from '../config/routes';
 
 
 const mapState = (state: RootState) => ({
@@ -30,18 +31,19 @@ const mapDispatch = {
   changeCurrencyAmount: changeCurrencyAmountAC,
 };
 
-const connector = connect(
-  mapState,
-  mapDispatch
-);
+const connector = connect(mapState, mapDispatch);
 
 type PropsFromRedux = ConnectedProps<typeof connector>
 
-type HomeProps = PropsFromRedux & RouteComponentProps;
+type HomeProps = PropsFromRedux & RouteComponentProps<{}, StaticContext, TCurrenciesRouteState>;
 
 class HomeClass extends Component<HomeProps, {}> {
-  goToCurrencyList = () => (
-    this.props.history.push(ROUTES.CURRENCIES)
+  goToCurrencyListBase = () => (
+    this.props.history.push(ROUTES.CURRENCIES, {type: 'base'})
+  );
+
+  goToCurrencyListQuote = () => (
+    this.props.history.push(ROUTES.CURRENCIES, {type: 'quote'})
   );
 
   handleChangeQuoteCurrency = (event: React.ChangeEvent<HTMLInputElement>) => (
@@ -62,7 +64,6 @@ class HomeClass extends Component<HomeProps, {}> {
     } = this.props;
     const conversionSelector = conversions[baseCurrency];
     const conversionDate = new Date(conversionSelector?.date ?? Date.now());
-    console.log('!!TCL: HomeClass -> render -> conversionDate', conversionDate);
     const conversionRate: number = (conversionSelector?.rates?.[quoteCurrency] ?? 0);
     const quotePrice = (amount * conversionRate).toFixed(2);
 
@@ -73,14 +74,14 @@ class HomeClass extends Component<HomeProps, {}> {
         <CurrencyInput
           currency={baseCurrency}
           value={amount.toString()}
-          onClick={this.goToCurrencyList}
+          onClick={this.goToCurrencyListBase}
           onChange={this.handleCurrencyChange}
         />
         <CurrencyInput
           currency={quoteCurrency}
           disabled
           value={quotePrice}
-          onClick={this.goToCurrencyList}
+          onClick={this.goToCurrencyListQuote}
         />
         <LastConverted
           base={baseCurrency}

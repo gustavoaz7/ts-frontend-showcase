@@ -4,3 +4,7 @@ export enum ROUTES {
   OPTIONS = "/options",
   HOME = "/",
 }
+
+export type TCurrenciesRouteState = {
+  type: 'base' | 'quote';
+}

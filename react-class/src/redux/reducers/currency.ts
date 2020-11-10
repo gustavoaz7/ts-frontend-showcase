@@ -1,5 +1,10 @@
 import { Reducer } from 'redux';
-import { SWAP_CURRENCY, CHANGE_CHURRENCY_AMOUNT } from '../contants';
+import {
+  SWAP_CURRENCY,
+  CHANGE_CHURRENCY_AMOUNT,
+  CHANGE_BASE_CURRENCY,
+  CHANGE_QUOTE_CURRENCY,
+} from '../contants';
 import * as currencyActions from '../actions/currency';
 import { ExtractActions } from '../types';
 import { TCurrencies } from '../../config/currencies';
@@ -87,6 +92,10 @@ export const currencyReducer: Reducer<CurrencyState, CurrencyActions> = (
         baseCurrency: state.quoteCurrency,
         quoteCurrency: state.baseCurrency,
       };
+    case CHANGE_BASE_CURRENCY:
+      return { ...state, baseCurrency: action.payload };
+    case CHANGE_QUOTE_CURRENCY:
+      return { ...state, quoteCurrency: action.payload };
     default:
       return state;
   }
