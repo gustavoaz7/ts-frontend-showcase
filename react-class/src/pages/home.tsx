@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import styled from 'styled-components'
-import { StaticContext } from 'react-router';
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { Logo } from '../components/logo';
 import { CurrencyInput } from '../components/currency-input';
@@ -16,7 +15,7 @@ import {
   quoteCurrencySelector,
   conversionsSelector,
 } from '../redux/selectors/currency';
-import { ROUTES, TCurrenciesRouteState } from '../config/routes';
+import { CURRENCIES_ROUTE_TYPE, ROUTES } from '../config/routes';
 
 
 const mapState = (state: RootState) => ({
@@ -35,15 +34,15 @@ const connector = connect(mapState, mapDispatch);
 
 type PropsFromRedux = ConnectedProps<typeof connector>
 
-type HomeProps = PropsFromRedux & RouteComponentProps<{}, StaticContext, TCurrenciesRouteState>;
+type HomeProps = PropsFromRedux & RouteComponentProps;
 
 class HomeClass extends Component<HomeProps, {}> {
   goToCurrencyListBase = () => (
-    this.props.history.push(ROUTES.CURRENCIES, {type: 'base'})
+    this.props.history.push(ROUTES.CURRENCIES, {type: CURRENCIES_ROUTE_TYPE.BASE})
   );
 
   goToCurrencyListQuote = () => (
-    this.props.history.push(ROUTES.CURRENCIES, {type: 'quote'})
+    this.props.history.push(ROUTES.CURRENCIES, {type: CURRENCIES_ROUTE_TYPE.QUOTE})
   );
 
   handleChangeQuoteCurrency = (event: React.ChangeEvent<HTMLInputElement>) => (

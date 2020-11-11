@@ -5,6 +5,11 @@ export enum ROUTES {
   HOME = "/",
 }
 
+export enum CURRENCIES_ROUTE_TYPE {
+  BASE,
+  QUOTE,
+}
+
 export type TCurrenciesRouteState = {
-  type: 'base' | 'quote';
+  type: CURRENCIES_ROUTE_TYPE;
 }

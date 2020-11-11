@@ -7,7 +7,7 @@ import { currencies, TCurrencies } from '../config/currencies';
 import { ListItem } from '../components/list/list-item';
 import { Separator } from '../components/list/separator';
 import { PRIMARY_BLUE } from '../styles';
-import { TCurrenciesRouteState } from '../config/routes';
+import { CURRENCIES_ROUTE_TYPE, TCurrenciesRouteState } from '../config/routes';
 import {
   changeBaseCurrencyAC,
   changeQuoteCurrencyAC,
@@ -38,12 +38,12 @@ type CurrencyListProps = PropsFromRedux & RouteComponentProps<{}, StaticContext,
 class CurrencyListClass extends Component<CurrencyListProps, {}> {
   CURRENCIES_MAP = {
     action: {
-      base: this.props.changeBaseCurrency,
-      quote: this.props.changeQuoteCurrency,
+      [CURRENCIES_ROUTE_TYPE.BASE]: this.props.changeBaseCurrency,
+      [CURRENCIES_ROUTE_TYPE.QUOTE]: this.props.changeQuoteCurrency,
     },
     selector: {
-      base: this.props.baseCurrency,
-      quote: this.props.quoteCurrency,
+      [CURRENCIES_ROUTE_TYPE.BASE]: this.props.baseCurrency,
+      [CURRENCIES_ROUTE_TYPE.QUOTE]: this.props.quoteCurrency,
     }
   }
 
