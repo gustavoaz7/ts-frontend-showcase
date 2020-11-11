@@ -4,7 +4,7 @@ import {
   CHANGE_CHURRENCY_AMOUNT,
   CHANGE_BASE_CURRENCY,
   CHANGE_QUOTE_CURRENCY,
-} from '../contants';
+} from '../constants';
 import * as currencyActions from '../actions/currency';
 import { ExtractActions } from '../types';
 import { TCurrencies } from '../../config/currencies';

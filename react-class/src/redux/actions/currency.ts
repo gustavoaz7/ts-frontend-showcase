@@ -4,7 +4,7 @@ import {
   CHANGE_CHURRENCY_AMOUNT,
   CHANGE_BASE_CURRENCY,
   CHANGE_QUOTE_CURRENCY,
-} from '../contants';
+} from '../constants';
 import { TCurrencies } from '../../config/currencies';
 
 export const swapCurrencyAC = () => createAction(SWAP_CURRENCY);
