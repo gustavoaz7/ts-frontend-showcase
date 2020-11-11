@@ -65,7 +65,7 @@ class CurrencyListClass extends Component<CurrencyListProps, {}> {
             <ListItem
               text={currency}
               selected={currency === selectedCurrency}
-              onClick={() => this.handleCurrencyClick(currency)}
+              onClick={this.handleCurrencyClick}
               iconColor={PRIMARY_BLUE}
             />
           </Fragment>

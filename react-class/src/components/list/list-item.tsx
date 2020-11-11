@@ -1,11 +1,11 @@
-import React, { FC, MouseEvent } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import { Icon } from './icon';
 
 type ListItemProps = {
   text: string;
   selected?: boolean;
-  onClick(event: MouseEvent): void;
+  onClick(text: string): void;
   showIcon?: boolean;
   checkmark?: boolean;
   iconColor?: string;
@@ -19,7 +19,7 @@ export const ListItem: FC<ListItemProps> = ({
   checkmark = true,
   iconColor,
 }) => (
-  <Container onClick={onClick}>
+  <Container onClick={() => onClick(text)}>
     <Text>{text}</Text>
     {selected ? (
       <Icon
