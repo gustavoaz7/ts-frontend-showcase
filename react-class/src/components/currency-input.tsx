@@ -1,12 +1,7 @@
 import React, { FC, ChangeEvent } from 'react';
-import styled from 'styled-components';
+import styled, { withTheme }from 'styled-components';
 import { TCurrencies } from '../config/currencies';
-import {
-  PRIMARY_BLUE,
-  LIGHT_GRAY,
-  GRAY,
-  DARK_GRAY,
-} from '../styles'
+
 
 type CurrencyInputProps = {
   currency: TCurrencies;
@@ -46,7 +41,7 @@ export const CurrencyInput: FC<CurrencyInputProps> = ({
 const HEIGHT = 50;
 const BORDER_RADIUS = 4;
 
-const Container = styled.div<{disabled: boolean}>`
+const Container = withTheme(styled.div<{disabled: boolean}>`
   background-color: #fff;
   display: flex;
   flex-direction: row;
@@ -57,12 +52,12 @@ const Container = styled.div<{disabled: boolean}>`
   align-items: center;
   margin: 10px 0;
   overflow: hidden;
-  ${({ disabled }) => disabled && `
-    background-color: ${LIGHT_GRAY};
+  ${({ disabled, theme }) => disabled && `
+    background-color: ${theme.colors.lightGray};
   `}
-`;
+`);
 
-const Button = styled.div`
+const Button = withTheme(styled.div`
   cursor: pointer;
   height: ${HEIGHT}px;
   background-color: white;
@@ -70,31 +65,31 @@ const Button = styled.div`
   align-items: center;
   justify-content: center;
   &:hover {
-    background-color: ${LIGHT_GRAY};
+    background-color: ${({ theme }) => theme.colors.lightGray};
   }
   &:active {
-    background-color: ${GRAY};
+    background-color: ${({ theme }) => theme.colors.gray};
   }
-`;
+`);
 
-const Separator = styled.div`
+const Separator = withTheme(styled.div`
   height: ${HEIGHT}px;
   width: 1px;
-  background-color: ${GRAY};
-`;
+  background-color: ${({ theme }) => theme.colors.gray};
+`);
 
-const Text = styled.span`
-  color: ${PRIMARY_BLUE};
+const Text = withTheme(styled.span`
+  color: ${({ theme }) => theme.colors.darkGray};
   font-size: 20px;
   font-weight: 600;
   padding: 0 12px;
-`;
+`);
 
-const Input = styled.input`
+const Input = withTheme(styled.input`
   flex: 1;
   height: 100%;
   border: none;
   font-size: 18px;
   padding: 0 10px;
-  color: ${DARK_GRAY};
-`;
+  color: ${({ theme }) => theme.colors.darkGray};
+`);

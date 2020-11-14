@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import styled from 'styled-components'
+import styled, { withTheme } from 'styled-components'
 import { format } from 'date-fns'
 import { TCurrencies } from '../config/currencies';
 
@@ -24,6 +24,6 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const Text = styled.span`
-  color: white;
-`;
+const Text = withTheme(styled.span`
+  color: ${({ theme }) => theme.colors.secondary};
+`);

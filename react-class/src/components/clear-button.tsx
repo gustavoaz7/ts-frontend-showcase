@@ -1,5 +1,5 @@
 import React, { FC, MouseEvent } from 'react';
-import styled from 'styled-components'
+import styled, { withTheme } from 'styled-components'
 import logo from '../assets/logo.png'
 
 type ClearButtonProps = {
@@ -21,10 +21,10 @@ export const ClearButton: FC<ClearButtonProps> = ({
   </Button>
 );
 
-const Button = styled.div`
+const Button = withTheme(styled.div`
   cursor: pointer;
   align-items: center;
-  border: 1px solid white;
+  border: 1px solid ${({ theme }) => theme.colors.secondary};
   border-radius: 4px;
   overflow: hidden;
   padding-right: 10px;
@@ -34,20 +34,20 @@ const Button = styled.div`
   &:active {
     background-color: rgba(255,255,255, 0.5);
   }
-`;
+`);
 
 const Container = styled.div`
   display: flex;
   align-items: center;
 `;
 
-const Image = styled.img`
+const Image = withTheme(styled.img`
   width: 20px;
   height: 20px;
-  filter: invert(100%);
+  ${({ theme }) => theme.invertImage && 'filter: invert(100%)'};
   margin: 10px;
-`;
+`);
 
-const Text = styled.span`
-  color: white;
-`;
+const Text = withTheme(styled.span`
+  color: ${({ theme }) => theme.colors.secondary};
+`);

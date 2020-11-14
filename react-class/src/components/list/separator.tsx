@@ -1,8 +1,7 @@
-import styled from 'styled-components';
-import { LIGHT_GRAY } from '../../styles';
+import styled, { withTheme } from 'styled-components';
 
 
-export const Separator = styled.div`
+export const Separator = withTheme(styled.div`
   height: 1px;
-  background-color: ${LIGHT_GRAY};
-`;
+  background-color: ${({ theme }) => theme.colors.lightGray};
+`);

@@ -6,6 +6,7 @@ export enum THEME_VARIANTS {
 }
 
 export type TTheme = {
+  invertImage: boolean;
   colors: {
     primary: string;
     secondary: string;
@@ -22,6 +23,7 @@ const sharedColors: Omit<TTheme['colors'], 'primary' | 'secondary'> = {
 }
 
 export const blueTheme: TTheme = {
+  invertImage: true,
   colors: {
     primary: '#4F6D7A',
     secondary: '#fff',
@@ -30,6 +32,7 @@ export const blueTheme: TTheme = {
 };
 
 export const orangeTheme: TTheme = {
+  invertImage: false,
   colors: {
     primary: '#D57A66',
     secondary: '#333',
@@ -38,6 +41,7 @@ export const orangeTheme: TTheme = {
 };
 
 export const greenTheme: TTheme = {
+  invertImage: true,
   colors: {
     primary: '#00BD9D',
     secondary: '#fff',
@@ -46,6 +50,7 @@ export const greenTheme: TTheme = {
 };
 
 export const purpleTheme: TTheme = {
+  invertImage: true,
   colors: {
     primary: '#9E768F',
     secondary: '#fff',

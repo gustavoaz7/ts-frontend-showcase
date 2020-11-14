@@ -1,9 +1,9 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { FC } from 'react';
+import styled, { withTheme } from 'styled-components';
 import logo from '../assets/logo.png'
 
 
-export const Logo = () => (
+export const Logo: FC = () => (
   <Container>
     <Image
       src={logo}
@@ -19,12 +19,12 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const Image = styled.img`
-  filter: invert(100%);
+const Image = withTheme(styled.img`
+  ${({ theme }) => theme.invertImage && 'filter: invert(100%)'};
   max-width: 200px;
-`;
+`);
 
-const Title = styled.h1`
-  color: white;
+const Title = withTheme(styled.h1`
+  color: ${({ theme }) => theme.colors.secondary};
   margin-top: 10px;
-`;
+`);
