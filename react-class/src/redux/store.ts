@@ -1,9 +1,11 @@
 import { createStore, combineReducers, compose } from 'redux';
 import { currencyReducer } from './reducers/currency';
+import { themeVariantReducer } from './reducers/theme-variant';
 
 
 const rootReducer = combineReducers({
   currency: currencyReducer,
+  themeVariant: themeVariantReducer,
 });
 
 let composeEnhancer = compose;
