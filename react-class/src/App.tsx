@@ -1,35 +1,28 @@
-import React from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from "react-router-dom";
-import { CurrencyList } from './pages/currency-list'
-import { Home } from './pages/home'
-import { Themes } from './pages/themes'
-import { Options } from './pages/options'
-import { ROUTES } from './config/routes';
+import React, { FC } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
+import { ThemeProvider } from 'styled-components'
+import { themeVariantSelector } from './redux/selectors/theme-variant';
+import { RootState } from './redux/store';
+import { Router } from './router';
+import { getTheme } from './config/themes';
 
 
-function App() {
+const mapState = (state: RootState) => ({
+  themeVariant: themeVariantSelector(state),
+})
+
+const connector = connect(mapState);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+type AppProps = PropsFromRedux;
+
+const App: FC<AppProps> = ({ themeVariant }) => {
   return (
-    <Router>
-      <Switch>
-        <Route path={ROUTES.CURRENCIES}>
-          <CurrencyList />
-        </Route>
-        <Route path={ROUTES.THEMES}>
-          <Themes />
-        </Route>
-        <Route path={ROUTES.OPTIONS}>
-          <Options />
-        </Route>
-        <Route path={ROUTES.HOME}>
-          <Home />
-        </Route>
-      </Switch>
-    </Router>
+    <ThemeProvider theme={getTheme(themeVariant)}>
+      <Router />
+    </ThemeProvider>
   );
 }
 
-export default App;
+export default connector(App);

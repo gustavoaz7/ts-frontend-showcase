@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import styled from 'styled-components'
+import styled, { withTheme } from 'styled-components'
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { Logo } from '../components/logo';
 import { CurrencyInput } from '../components/currency-input';
@@ -96,15 +96,15 @@ class HomeClass extends Component<HomeProps, {}> {
 
 export const Home = connector(withRouter(HomeClass));
 
-const Wrapper = styled.div`
+const Wrapper = withTheme(styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
   align-items: center;
   justify-content: center;
   padding: 0 10px;
-  background-color: #4F6D7A;
-`;
+  background-color: ${({ theme }) => theme.colors.primary};
+`);
 
 const StyledClearButton = styled(ClearButton)`
   margin-top: 10px;

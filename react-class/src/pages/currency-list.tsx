@@ -1,12 +1,11 @@
 import React, { Component, Fragment } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import styled from 'styled-components';
+import styled, { withTheme, ThemeProps, DefaultTheme } from 'styled-components';
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import { StaticContext } from 'react-router';
 import { currencies, TCurrencies } from '../config/currencies';
 import { ListItem } from '../components/list/list-item';
 import { Separator } from '../components/list/separator';
-import { PRIMARY_BLUE } from '../styles';
 import { CURRENCIES_ROUTE_TYPE, TCurrenciesRouteState } from '../config/routes';
 import {
   changeBaseCurrencyAC,
@@ -31,9 +30,9 @@ const mapDispatch = {
 
 const connector = connect(mapState, mapDispatch);
 
-type PropsFromRedux = ConnectedProps<typeof connector>
-
-type CurrencyListProps = PropsFromRedux & RouteComponentProps<{}, StaticContext, TCurrenciesRouteState>;
+type CurrencyListProps = ConnectedProps<typeof connector>
+  & RouteComponentProps<{}, StaticContext, TCurrenciesRouteState>
+  & ThemeProps<DefaultTheme>;
 
 class CurrencyListClass extends Component<CurrencyListProps, {}> {
   CURRENCIES_MAP = {
@@ -55,7 +54,7 @@ class CurrencyListClass extends Component<CurrencyListProps, {}> {
   }
 
   render() {
-    const { location } = this.props;
+    const { location, theme } = this.props;
     const selectedCurrency = this.CURRENCIES_MAP.selector[location.state.type];
     return (
       <Container>
@@ -66,7 +65,7 @@ class CurrencyListClass extends Component<CurrencyListProps, {}> {
               text={currency}
               selected={currency === selectedCurrency}
               onClick={this.handleCurrencyClick}
-              iconColor={PRIMARY_BLUE}
+              iconColor={theme.colors.primary}
             />
           </Fragment>
         ))}
@@ -75,7 +74,7 @@ class CurrencyListClass extends Component<CurrencyListProps, {}> {
   }
 }
 
-export const CurrencyList = connector(withRouter(CurrencyListClass));
+export const CurrencyList = connector(withRouter(withTheme(CurrencyListClass)));
 
 const Container = styled.div`
   display: flex;

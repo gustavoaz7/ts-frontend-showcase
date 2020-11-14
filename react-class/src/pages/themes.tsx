@@ -1,52 +1,66 @@
 import React, { Component, Fragment } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { ListItem } from '../components/list/list-item';
 import { Separator } from '../components/list/separator';
 import { ROUTES } from '../config/routes';
+import { changeThemeVariantAC } from '../redux/actions/theme-variant';
 import {
-  PRIMARY_BLUE,
-  PRIMARY_ORANGE,
-  PRIMARY_GREEN,
-  PRIMARY_PURPLE,
-} from '../styles';
+  THEME_VARIANTS,
+  blueTheme,
+  orangeTheme,
+  greenTheme,
+  purpleTheme
+} from '../config/themes';
 
-class ThemesClass extends Component<RouteComponentProps, {}> {
-  handleThemeChange(color: string) {
-    // TODO: change color
-    this.props.history.push(ROUTES.OPTIONS);
+
+const mapDispatch = {
+  changeTheme: changeThemeVariantAC,
+};
+
+const connector = connect(null, mapDispatch);
+
+type ThemeProps = ConnectedProps<typeof connector> & RouteComponentProps;
+
+class ThemesClass extends Component<ThemeProps, {}> {
+  handleThemeChange = (color: THEME_VARIANTS) => {
+    const { changeTheme, history } = this.props;
+
+    changeTheme(color);
+    history.push(ROUTES.HOME);
   }
 
   render() {
     return (
       <Fragment>
         <ListItem
-          text="Blue"
-          onClick={() => this.handleThemeChange(PRIMARY_BLUE)}
-          iconColor={PRIMARY_BLUE}
+          text={THEME_VARIANTS.BLUE}
+          onClick={this.handleThemeChange}
+          iconColor={blueTheme.colors.primary}
           selected
           checkmark={false}
         />
         <Separator />
         <ListItem
-          text="Orange"
-          onClick={() => this.handleThemeChange(PRIMARY_ORANGE)}
-          iconColor={PRIMARY_ORANGE}
+          text={THEME_VARIANTS.ORANGE}
+          onClick={this.handleThemeChange}
+          iconColor={orangeTheme.colors.primary}
           selected
           checkmark={false}
         />
         <Separator />
         <ListItem
-          text="Green"
-          onClick={() => this.handleThemeChange(PRIMARY_GREEN)}
-          iconColor={PRIMARY_GREEN}
+          text={THEME_VARIANTS.GREEN}
+          onClick={this.handleThemeChange}
+          iconColor={greenTheme.colors.primary}
           selected
           checkmark={false}
         />
         <Separator />
         <ListItem
-          text="Purple"
-          onClick={() => this.handleThemeChange(PRIMARY_PURPLE)}
-          iconColor={PRIMARY_PURPLE}
+          text={THEME_VARIANTS.PURPLE}
+          onClick={this.handleThemeChange}
+          iconColor={purpleTheme.colors.primary}
           selected
           checkmark={false}
         />
@@ -56,4 +70,4 @@ class ThemesClass extends Component<RouteComponentProps, {}> {
   }
 }
 
-export const Themes = withRouter(ThemesClass);
+export const Themes = connector(withRouter(ThemesClass));
