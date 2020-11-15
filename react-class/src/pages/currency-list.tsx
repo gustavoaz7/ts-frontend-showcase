@@ -7,15 +7,13 @@ import { currencies, TCurrencies } from '../config/currencies';
 import { ListItem } from '../components/list/list-item';
 import { Separator } from '../components/list/separator';
 import { CURRENCIES_ROUTE_TYPE, TCurrenciesRouteState } from '../config/routes';
-import {
-  changeBaseCurrencyAC,
-  changeQuoteCurrencyAC,
-} from '../redux/actions/currency';
+import { changeQuoteCurrencyAC } from '../redux/actions/currency';
 import {
   baseCurrencySelector,
   quoteCurrencySelector,
 } from '../redux/selectors/currency';
 import { RootState } from '../redux/store';
+import { changeBaseCurrencyThunk } from '../redux/thunks/currency';
 
 
 const mapState = (state: RootState) => ({
@@ -24,7 +22,7 @@ const mapState = (state: RootState) => ({
 })
 
 const mapDispatch = {
-  changeBaseCurrency: changeBaseCurrencyAC,
+  changeBaseCurrency: changeBaseCurrencyThunk,
   changeQuoteCurrency: changeQuoteCurrencyAC,
 }
 

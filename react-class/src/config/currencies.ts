@@ -35,3 +35,9 @@ export const currencies = [
 ] as const;
 
 export type TCurrencies = typeof currencies[number];
+
+export type TCurrencyApi = {
+  base: TCurrencies;
+  date: string;
+  rates: { [key in TCurrencies]: number };
+};

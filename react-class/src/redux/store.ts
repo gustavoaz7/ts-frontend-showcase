@@ -1,4 +1,5 @@
-import { createStore, combineReducers, compose } from 'redux';
+import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import { currencyReducer } from './reducers/currency';
 import { themeVariantReducer } from './reducers/theme-variant';
 
@@ -13,9 +14,11 @@ if (process.env.NODE_ENV === 'development') {
   composeEnhancer = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 }
 
+const middlewares = [thunk];
+
 export const store = createStore(
   rootReducer,
-  composeEnhancer(),
+  composeEnhancer(applyMiddleware(...middlewares)),
 );
 
 export type RootState = ReturnType<typeof rootReducer>;

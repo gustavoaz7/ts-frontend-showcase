@@ -1,5 +1,5 @@
 import { Reducer } from 'redux';
-import { CHANGE_THEME_COLOR } from '../constants';
+import { THEME_VARIANT_ACTION_TYPES } from '../action-types/theme-variant';
 import * as themeVariantActions from '../actions/theme-variant';
 import { ExtractActions } from '../types';
 import { THEME_VARIANTS } from '../../config/themes';
@@ -16,7 +16,7 @@ export const themeVariantReducer: Reducer<THEME_VARIANTS, ThemeVariantActions> =
   action,
 ) => {
   switch (action.type) {
-    case CHANGE_THEME_COLOR:
+    case THEME_VARIANT_ACTION_TYPES.CHANGE_VARIANT:
       return action.payload;
     default:
       return state;

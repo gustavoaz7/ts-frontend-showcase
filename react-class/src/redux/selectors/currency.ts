@@ -13,4 +13,4 @@ export const amountSelector = (state: RootState) => selector(state).amount;
 export const errorSelector = (state: RootState) => selector(state).error;
 
 export const conversionsSelector = (state: RootState) =>
-  selector(state).conversions || {};
+  selector(state).conversions;

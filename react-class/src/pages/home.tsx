@@ -8,7 +8,7 @@ import { ClearButton } from '../components/clear-button';
 import { LastConverted } from '../components/last-converted';
 import { Header } from '../components/header';
 import { RootState } from '../redux/store';
-import { swapCurrencyAC, changeCurrencyAmountAC } from '../redux/actions/currency';
+import { changeCurrencyAmountAC } from '../redux/actions/currency';
 import {
   amountSelector,
   baseCurrencySelector,
@@ -16,18 +16,20 @@ import {
   conversionsSelector,
 } from '../redux/selectors/currency';
 import { CURRENCIES_ROUTE_TYPE, ROUTES } from '../config/routes';
+import { getCurrencyConversionsThunk, swapCurrencyThunk } from '../redux/thunks/currency';
 
 
 const mapState = (state: RootState) => ({
   amount: amountSelector(state),
   baseCurrency: baseCurrencySelector(state),
   quoteCurrency: quoteCurrencySelector(state),
-  conversions: conversionsSelector(state),
+  rates: conversionsSelector(state),
 });
 
 const mapDispatch = {
-  swapCurrency: swapCurrencyAC,
+  swapCurrency: swapCurrencyThunk,
   changeCurrencyAmount: changeCurrencyAmountAC,
+  getCurrencyRates: getCurrencyConversionsThunk,
 };
 
 const connector = connect(mapState, mapDispatch);
@@ -37,6 +39,11 @@ type PropsFromRedux = ConnectedProps<typeof connector>
 type HomeProps = PropsFromRedux & RouteComponentProps;
 
 class HomeClass extends Component<HomeProps, {}> {
+  componentDidMount() {
+    const { getCurrencyRates, baseCurrency } = this.props;
+    getCurrencyRates(baseCurrency);
+  }
+
   goToCurrencyListBase = () => (
     this.props.history.push(ROUTES.CURRENCIES, {type: CURRENCIES_ROUTE_TYPE.BASE})
   );
@@ -58,10 +65,10 @@ class HomeClass extends Component<HomeProps, {}> {
       baseCurrency,
       quoteCurrency,
       amount,
-      conversions,
+      rates,
       swapCurrency,
     } = this.props;
-    const conversionSelector = conversions[baseCurrency];
+    const conversionSelector = rates[baseCurrency];
     const conversionDate = new Date(conversionSelector?.date ?? Date.now());
     const conversionRate: number = (conversionSelector?.rates?.[quoteCurrency] ?? 0);
     const quotePrice = (amount * conversionRate).toFixed(2);
