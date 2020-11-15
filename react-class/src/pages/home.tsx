@@ -17,6 +17,7 @@ import {
 } from '../redux/selectors/currency';
 import { CURRENCIES_ROUTE_TYPE, ROUTES } from '../config/routes';
 import { getCurrencyConversionsThunk, swapCurrencyThunk } from '../redux/thunks/currency';
+import { Loading } from '../components/loading';
 
 
 const mapState = (state: RootState) => ({
@@ -72,9 +73,11 @@ class HomeClass extends Component<HomeProps, {}> {
     const conversionDate = new Date(conversionSelector?.date ?? Date.now());
     const conversionRate: number = (conversionSelector?.rates?.[quoteCurrency] ?? 0);
     const quotePrice = (amount * conversionRate).toFixed(2);
+    const showLoading = !conversionSelector || conversionSelector.isFetching;
 
     return (
       <Wrapper>
+        {showLoading && <Loading overlay/>}
         <Header />
         <Logo />
         <CurrencyInput

@@ -5,6 +5,7 @@ import { themeVariantSelector } from './redux/selectors/theme-variant';
 import { RootState } from './redux/store';
 import { Router } from './router';
 import { getTheme } from './config/themes';
+import { ErrorBoundary } from './components/error-boundary';
 
 
 const mapState = (state: RootState) => ({
@@ -19,8 +20,10 @@ type AppProps = PropsFromRedux;
 
 const App: FC<AppProps> = ({ themeVariant }) => (
   <ThemeProvider theme={getTheme(themeVariant)}>
-    <GlobalStyle />
-    <Router />
+    <ErrorBoundary>
+      <GlobalStyle />
+      <Router />
+    </ErrorBoundary>
   </ThemeProvider>
 );
 
