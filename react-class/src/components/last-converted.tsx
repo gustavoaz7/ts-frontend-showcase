@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import styled, { withTheme } from 'styled-components'
+import styled from 'styled-components'
 import { format } from 'date-fns'
 import { TCurrencies } from '../config/currencies';
 
@@ -13,9 +13,9 @@ type LastConvertedProps = {
 
 export const LastConverted: FC<LastConvertedProps> = ({ base, quote, rate, date }) => (
   <Container>
-    <Text>
+    <span>
       {`1 ${base} = ${rate.toFixed(5)} ${quote} as of ${format(date, 'MMM, dd, yyyy')}`}
-    </Text>
+    </span>
   </Container>
 );
 
@@ -23,7 +23,3 @@ const Container = styled.div`
   display: flex;
   align-items: center;
 `;
-
-const Text = withTheme(styled.span`
-  color: ${({ theme }) => theme.colors.secondary};
-`);

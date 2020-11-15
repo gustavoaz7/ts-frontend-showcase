@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import styled, { withTheme } from 'styled-components';
+import styled from 'styled-components';
 import logo from '../assets/logo.png'
 
 
@@ -9,7 +9,7 @@ export const Logo: FC = () => (
       src={logo}
       alt="logo"
     />
-    <Title>{'Currency Converter'}</Title>
+    <h1>{'Currency Converter'}</h1>
   </Container>
 );
 
@@ -19,12 +19,7 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const Image = withTheme(styled.img`
-  ${({ theme }) => theme.invertImage && 'filter: invert(100%)'};
+const Image = styled.img`
   max-width: 200px;
-`);
-
-const Title = withTheme(styled.h1`
-  color: ${({ theme }) => theme.colors.secondary};
-  margin-top: 10px;
-`);
+  margin-bottom: 10px;
+`;

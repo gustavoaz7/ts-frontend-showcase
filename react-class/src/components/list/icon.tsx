@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import styled, { withTheme } from 'styled-components';
+import styled from 'styled-components';
 import check from '../../assets/check.png';
 
 type IconProps = {
@@ -36,7 +36,6 @@ const StyledIcon = styled.div<{color?: string}>`
   justify-content: center;
 `;
 
-const Check = withTheme(styled.img`
+const Check = styled.img`
   width: 18px;
-  ${({ theme }) => theme.invertImage && 'filter: invert(100%)'};
-`);
+`;

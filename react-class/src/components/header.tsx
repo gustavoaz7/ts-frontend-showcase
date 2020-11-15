@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import styled, { withTheme } from 'styled-components'
+import styled from 'styled-components'
 import { Link } from "react-router-dom";
 import gear from '../assets/gear.png'
 import { ROUTES } from '../config/routes';
@@ -20,8 +20,7 @@ const Container = styled(Link)`
   border-radius: ${GEAR_SIZE}px;
 `;
 
-const Image = withTheme(styled.img`
+const Image = styled.img`
   width: ${GEAR_SIZE}px;
   margin: 6px;
-  ${({ theme }) => theme.invertImage && 'filter: invert(100%)'};
-`);
+`;

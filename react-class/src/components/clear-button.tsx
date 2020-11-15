@@ -16,7 +16,7 @@ export const ClearButton: FC<ClearButtonProps> = ({
   <Button onClick={onClick} className={className}>
     <Container>
       <Image src={logo} />
-      <Text>{text}</Text>
+      <span>{text}</span>
     </Container>
   </Button>
 );
@@ -41,13 +41,8 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const Image = withTheme(styled.img`
+const Image = styled.img`
   width: 20px;
   height: 20px;
-  ${({ theme }) => theme.invertImage && 'filter: invert(100%)'};
   margin: 10px;
-`);
-
-const Text = withTheme(styled.span`
-  color: ${({ theme }) => theme.colors.secondary};
-`);
+`;
