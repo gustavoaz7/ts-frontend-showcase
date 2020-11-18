@@ -1,5 +1,7 @@
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
+import { persistStore, persistReducer, PersistConfig } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import { currencyReducer } from './reducers/currency';
 import { themeVariantReducer } from './reducers/theme-variant';
 
@@ -7,6 +9,19 @@ const rootReducer = combineReducers({
   currency: currencyReducer,
   themeVariant: themeVariantReducer,
 });
+
+export type RootState = ReturnType<typeof rootReducer>;
+
+const persistConfig: PersistConfig<RootState> & {
+  // Enforces whitelist to exist in state
+  whitelist: (keyof RootState)[];
+} = {
+  key: 'root',
+  storage,
+  whitelist: ['themeVariant'],
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 let composeEnhancer = compose;
 if (process.env.NODE_ENV === 'development') {
@@ -18,8 +33,8 @@ if (process.env.NODE_ENV === 'development') {
 const middlewares = [thunk];
 
 export const store = createStore(
-  rootReducer,
+  persistedReducer,
   composeEnhancer(applyMiddleware(...middlewares)),
 );
 
-export type RootState = ReturnType<typeof rootReducer>;
+export const persistor = persistStore(store);
