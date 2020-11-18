@@ -1,3 +1,5 @@
+import { exhaustiveCheck } from '../utils';
+
 export enum THEME_VARIANTS {
   BLUE = 'Blue',
   ORANGE = 'Orange',
@@ -67,6 +69,7 @@ export const getTheme = (variant: THEME_VARIANTS) => {
     case THEME_VARIANTS.PURPLE:
       return purpleTheme;
     default:
+      exhaustiveCheck(variant);
       throw new Error('Invalid theme variant');
   }
 };

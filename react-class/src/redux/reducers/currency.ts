@@ -3,6 +3,7 @@ import { CURRENCY_ACTION_TYPES } from '../action-types/currency';
 import * as currencyActions from '../actions/currency';
 import { ExtractActions } from '../types';
 import { TCurrencies } from '../../config/currencies';
+import { exhaustiveCheck } from '../../utils';
 
 export type CurrencyState = Readonly<{
   baseCurrency: TCurrencies;
@@ -67,6 +68,7 @@ export const currencyReducer: Reducer<CurrencyState, CurrencyActions> = (
     case CURRENCY_ACTION_TYPES.GET_CONVERSIONS_REJECTED:
       return { ...state, loading: false, error: action.payload };
     default:
+      exhaustiveCheck(action);
       return state;
   }
 };

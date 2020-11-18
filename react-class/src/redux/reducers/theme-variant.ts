@@ -3,6 +3,7 @@ import { THEME_VARIANT_ACTION_TYPES } from '../action-types/theme-variant';
 import * as themeVariantActions from '../actions/theme-variant';
 import { ExtractActions } from '../types';
 import { THEME_VARIANTS } from '../../config/themes';
+import { exhaustiveCheck } from '../../utils';
 
 const initialState: THEME_VARIANTS = THEME_VARIANTS.BLUE;
 
@@ -18,6 +19,7 @@ export const themeVariantReducer: Reducer<
     case THEME_VARIANT_ACTION_TYPES.CHANGE_VARIANT:
       return action.payload;
     default:
+      exhaustiveCheck(action.type);
       return state;
   }
 };
