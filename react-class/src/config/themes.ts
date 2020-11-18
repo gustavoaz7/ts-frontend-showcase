@@ -12,14 +12,17 @@ export type TTheme = {
     lightGray: string;
     gray: string;
     darkGray: string;
-  }
-}
+  };
+};
 
-const sharedColors: Omit<TTheme['colors'], 'primary' | 'secondary'> = {
+const sharedColors: Pick<
+  TTheme['colors'],
+  'lightGray' | 'gray' | 'darkGray'
+> = {
   lightGray: '#F0F0F0',
   gray: '#979797',
   darkGray: '#797979',
-}
+};
 
 export const blueTheme: TTheme = {
   colors: {
@@ -63,5 +66,7 @@ export const getTheme = (variant: THEME_VARIANTS) => {
       return orangeTheme;
     case THEME_VARIANTS.PURPLE:
       return purpleTheme;
+    default:
+      throw new Error('Invalid theme variant');
   }
-}
+};

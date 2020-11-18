@@ -1,14 +1,18 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
-
 type LoadingProps = {
   overlay?: boolean;
-}
+};
 
-export const Loading: FC<LoadingProps> = ({ overlay }) => (
-  overlay ? <Overlay><Spinner/></Overlay> : <Spinner />
-);
+export const Loading: FC<LoadingProps> = ({ overlay }) =>
+  overlay ? (
+    <Overlay>
+      <Spinner />
+    </Overlay>
+  ) : (
+    <Spinner />
+  );
 
 const Overlay = styled.div`
   display: flex;

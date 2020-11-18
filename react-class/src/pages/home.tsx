@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import styled, { withTheme } from 'styled-components'
-import { withRouter, RouteComponentProps } from "react-router-dom";
+import styled, { withTheme } from 'styled-components';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { Logo } from '../components/logo';
 import { CurrencyInput } from '../components/currency-input';
 import { ClearButton } from '../components/clear-button';
@@ -16,9 +16,11 @@ import {
   conversionsSelector,
 } from '../redux/selectors/currency';
 import { CURRENCIES_ROUTE_TYPE, ROUTES } from '../config/routes';
-import { getCurrencyConversionsThunk, swapCurrencyThunk } from '../redux/thunks/currency';
+import {
+  getCurrencyConversionsThunk,
+  swapCurrencyThunk,
+} from '../redux/thunks/currency';
 import { Loading } from '../components/loading';
-
 
 const mapState = (state: RootState) => ({
   amount: amountSelector(state),
@@ -35,31 +37,28 @@ const mapDispatch = {
 
 const connector = connect(mapState, mapDispatch);
 
-type PropsFromRedux = ConnectedProps<typeof connector>
+type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type HomeProps = PropsFromRedux & RouteComponentProps;
 
-class HomeClass extends Component<HomeProps, {}> {
+class HomeClass extends Component<HomeProps, unknown> {
   componentDidMount() {
     const { getCurrencyRates, baseCurrency } = this.props;
     getCurrencyRates(baseCurrency);
   }
 
-  goToCurrencyListBase = () => (
-    this.props.history.push(ROUTES.CURRENCIES, {type: CURRENCIES_ROUTE_TYPE.BASE})
-  );
+  goToCurrencyListBase = () =>
+    this.props.history.push(ROUTES.CURRENCIES, {
+      type: CURRENCIES_ROUTE_TYPE.BASE,
+    });
 
-  goToCurrencyListQuote = () => (
-    this.props.history.push(ROUTES.CURRENCIES, {type: CURRENCIES_ROUTE_TYPE.QUOTE})
-  );
+  goToCurrencyListQuote = () =>
+    this.props.history.push(ROUTES.CURRENCIES, {
+      type: CURRENCIES_ROUTE_TYPE.QUOTE,
+    });
 
-  handleChangeQuoteCurrency = (event: React.ChangeEvent<HTMLInputElement>) => (
-    this.setState({quoteCurrency: event.target.value})
-  );
-
-  handleCurrencyChange = (event: React.ChangeEvent<HTMLInputElement>) => (
-    this.props.changeCurrencyAmount(+event.target.value)
-  );
+  handleCurrencyChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+    this.props.changeCurrencyAmount(+event.target.value);
 
   render() {
     const {
@@ -71,13 +70,14 @@ class HomeClass extends Component<HomeProps, {}> {
     } = this.props;
     const conversionSelector = rates[baseCurrency];
     const conversionDate = new Date(conversionSelector?.date ?? Date.now());
-    const conversionRate: number = (conversionSelector?.rates?.[quoteCurrency] ?? 0);
+    const conversionRate: number =
+      conversionSelector?.rates?.[quoteCurrency] ?? 0;
     const quotePrice = (amount * conversionRate).toFixed(2);
     const showLoading = !conversionSelector || conversionSelector.isFetching;
 
     return (
       <Wrapper>
-        {showLoading && <Loading overlay/>}
+        {showLoading && <Loading overlay />}
         <Header />
         <Logo />
         <CurrencyInput
@@ -98,9 +98,9 @@ class HomeClass extends Component<HomeProps, {}> {
           rate={conversionRate}
           date={conversionDate}
         />
-        <StyledClearButton text={'Reverse Currencies'} onClick={swapCurrency} />
+        <StyledClearButton text="Reverse Currencies" onClick={swapCurrency} />
       </Wrapper>
-    )
+    );
   }
 }
 

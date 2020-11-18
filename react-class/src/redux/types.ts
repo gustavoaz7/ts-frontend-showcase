@@ -1,4 +1,5 @@
-import { Action as ReduxAction} from 'redux';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Action as ReduxAction } from 'redux';
 
 export type Action<T extends string> = ReduxAction<T>;
 
@@ -8,4 +9,6 @@ export type ActionPayload<T extends string, P> = Action<T> & {
 
 export type ExtractActions<AC> = AC extends () => infer A
   ? A
-  : (AC extends (payload: any) => infer A ? A : never);
+  : AC extends (payload: any) => infer A
+  ? A
+  : never;

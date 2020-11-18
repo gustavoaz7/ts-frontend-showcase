@@ -3,7 +3,6 @@ import thunk from 'redux-thunk';
 import { currencyReducer } from './reducers/currency';
 import { themeVariantReducer } from './reducers/theme-variant';
 
-
 const rootReducer = combineReducers({
   currency: currencyReducer,
   themeVariant: themeVariantReducer,
@@ -11,7 +10,9 @@ const rootReducer = combineReducers({
 
 let composeEnhancer = compose;
 if (process.env.NODE_ENV === 'development') {
-  composeEnhancer = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+  composeEnhancer =
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 }
 
 const middlewares = [thunk];

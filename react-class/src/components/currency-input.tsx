@@ -1,7 +1,6 @@
 import React, { FC, ChangeEvent } from 'react';
-import styled, { withTheme }from 'styled-components';
+import styled, { withTheme } from 'styled-components';
 import { TCurrencies } from '../config/currencies';
-
 
 type CurrencyInputProps = {
   currency: TCurrencies;
@@ -10,7 +9,7 @@ type CurrencyInputProps = {
   disabled?: boolean;
   value?: string;
   className?: string;
-}
+};
 
 export const CurrencyInput: FC<CurrencyInputProps> = ({
   currency,
@@ -22,9 +21,7 @@ export const CurrencyInput: FC<CurrencyInputProps> = ({
 }) => {
   return (
     <Container className={className} disabled={disabled}>
-      <Button
-        onClick={onClick}
-      >
+      <Button onClick={onClick}>
         <Text>{currency}</Text>
       </Button>
       <Separator />
@@ -41,7 +38,7 @@ export const CurrencyInput: FC<CurrencyInputProps> = ({
 const HEIGHT = 50;
 const BORDER_RADIUS = 4;
 
-const Container = withTheme(styled.div<{disabled: boolean}>`
+const Container = withTheme(styled.div<{ disabled: boolean }>`
   background-color: #fff;
   display: flex;
   flex-direction: row;
@@ -52,9 +49,8 @@ const Container = withTheme(styled.div<{disabled: boolean}>`
   align-items: center;
   margin: 10px 0;
   overflow: hidden;
-  ${({ disabled, theme }) => disabled && `
-    background-color: ${theme.colors.lightGray};
-  `}
+  ${({ disabled, theme }) =>
+    disabled && `background-color: ${theme.colors.lightGray};`}
 `);
 
 const Button = withTheme(styled.div`

@@ -1,18 +1,16 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 type ErrorBoundaryState = {
-  error: Error | null,
-}
+  error: Error | null;
+};
 
-export class ErrorBoundary extends Component<{}, ErrorBoundaryState> {
+export class ErrorBoundary extends Component<unknown, ErrorBoundaryState> {
   state = {
     error: null,
   };
 
   componentDidCatch(error: Error) {
-    this.setState({
-      error: error,
-    })
+    this.setState({ error });
   }
 
   render() {
@@ -22,11 +20,13 @@ export class ErrorBoundary extends Component<{}, ErrorBoundaryState> {
         <div>
           <h2>Something went wrong.</h2>
           <br />
-          <p>Please try to go to the <a href="/">home page</a></p>
+          <p>
+            Please try to go to the <a href="/">home page</a>
+          </p>
         </div>
       );
     }
 
     return this.props.children;
   }
-};
+}

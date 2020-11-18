@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { withRouter, RouteComponentProps } from "react-router-dom";
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { ListItem } from '../components/list/list-item';
 import { Separator } from '../components/list/separator';
 import { ROUTES } from '../config/routes';
@@ -10,9 +10,8 @@ import {
   blueTheme,
   orangeTheme,
   greenTheme,
-  purpleTheme
+  purpleTheme,
 } from '../config/themes';
-
 
 const mapDispatch = {
   changeTheme: changeThemeVariantAC,
@@ -22,17 +21,17 @@ const connector = connect(null, mapDispatch);
 
 type ThemeProps = ConnectedProps<typeof connector> & RouteComponentProps;
 
-class ThemesClass extends Component<ThemeProps, {}> {
+class ThemesClass extends Component<ThemeProps, unknown> {
   handleThemeChange = (color: THEME_VARIANTS) => {
     const { changeTheme, history } = this.props;
 
     changeTheme(color);
     history.push(ROUTES.HOME);
-  }
+  };
 
   render() {
     return (
-      <Fragment>
+      <>
         <ListItem
           text={THEME_VARIANTS.BLUE}
           onClick={this.handleThemeChange}
@@ -65,8 +64,8 @@ class ThemesClass extends Component<ThemeProps, {}> {
           checkmark={false}
         />
         <Separator />
-      </Fragment>
-    )
+      </>
+    );
   }
 }
 

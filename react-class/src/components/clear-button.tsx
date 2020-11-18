@@ -1,12 +1,12 @@
 import React, { FC, MouseEvent } from 'react';
-import styled, { withTheme } from 'styled-components'
-import logo from '../assets/logo.png'
+import styled, { withTheme } from 'styled-components';
+import logo from '../assets/logo.png';
 
 type ClearButtonProps = {
   text: string;
   onClick(event: MouseEvent): void;
   className?: string;
-}
+};
 
 export const ClearButton: FC<ClearButtonProps> = ({
   text,
@@ -29,10 +29,10 @@ const Button = withTheme(styled.div`
   overflow: hidden;
   padding-right: 10px;
   &:hover {
-    background-color: rgba(255,255,255, 0.2);
+    background-color: rgba(255, 255, 255, 0.2);
   }
   &:active {
-    background-color: rgba(255,255,255, 0.5);
+    background-color: rgba(255, 255, 255, 0.5);
   }
 `);
 

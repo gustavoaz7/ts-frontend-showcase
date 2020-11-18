@@ -1,4 +1,4 @@
-import { Action, ActionPayload } from "../types";
+import { Action, ActionPayload } from '../types';
 
 export function createAction<T extends string>(type: T): Action<T>;
 export function createAction<T extends string, P>(

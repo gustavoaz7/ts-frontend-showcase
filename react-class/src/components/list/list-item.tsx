@@ -9,7 +9,7 @@ type ListItemProps = {
   showIcon?: boolean;
   checkmark?: boolean;
   iconColor?: string;
-}
+};
 
 export const ListItem: FC<ListItemProps> = ({
   text,
@@ -22,11 +22,7 @@ export const ListItem: FC<ListItemProps> = ({
   <Container onClick={() => onClick(text)}>
     <Text>{text}</Text>
     {selected ? (
-      <Icon
-        visible={showIcon}
-        checkmark={checkmark}
-        color={iconColor}
-      />
+      <Icon visible={showIcon} checkmark={checkmark} color={iconColor} />
     ) : (
       <Icon />
     )}

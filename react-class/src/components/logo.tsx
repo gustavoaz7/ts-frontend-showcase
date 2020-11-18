@@ -1,15 +1,11 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import logo from '../assets/logo.png'
-
+import logo from '../assets/logo.png';
 
 export const Logo: FC = () => (
   <Container>
-    <Image
-      src={logo}
-      alt="logo"
-    />
-    <h1>{'Currency Converter'}</h1>
+    <Image src={logo} alt="logo" />
+    <h1>Currency Converter</h1>
   </Container>
 );
 

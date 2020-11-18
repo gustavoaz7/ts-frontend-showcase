@@ -1,5 +1,5 @@
 import { Reducer } from 'redux';
-import { CURRENCY_ACTION_TYPES } from '../action-types/currency'
+import { CURRENCY_ACTION_TYPES } from '../action-types/currency';
 import * as currencyActions from '../actions/currency';
 import { ExtractActions } from '../types';
 import { TCurrencies } from '../../config/currencies';
@@ -9,7 +9,7 @@ export type CurrencyState = Readonly<{
   quoteCurrency: TCurrencies;
   amount: number;
   loading: boolean;
-  error: object | null;
+  error: Error | null;
   conversions: {
     [key in TCurrencies]?: {
       isFetching: boolean;
@@ -18,7 +18,7 @@ export type CurrencyState = Readonly<{
       rates: {
         [k in TCurrencies]: number;
       };
-    }
+    };
   };
 }>;
 
@@ -38,7 +38,7 @@ type CurrencyActions = ExtractActions<
 export const currencyReducer: Reducer<CurrencyState, CurrencyActions> = (
   state = initialState,
   action,
-  ) => {
+) => {
   switch (action.type) {
     case CURRENCY_ACTION_TYPES.CHANGE_AMOUNT:
       return { ...state, amount: action.payload || 0 };
@@ -63,7 +63,7 @@ export const currencyReducer: Reducer<CurrencyState, CurrencyActions> = (
           ...state.conversions,
           [action.payload.base]: { ...action.payload },
         },
-      }
+      };
     case CURRENCY_ACTION_TYPES.GET_CONVERSIONS_REJECTED:
       return { ...state, loading: false, error: action.payload };
     default:

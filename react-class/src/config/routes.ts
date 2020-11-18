@@ -1,8 +1,8 @@
 export enum ROUTES {
-  CURRENCIES = "/currencies",
-  THEMES = "/themes",
-  OPTIONS = "/options",
-  HOME = "/",
+  CURRENCIES = '/currencies',
+  THEMES = '/themes',
+  OPTIONS = '/options',
+  HOME = '/',
 }
 
 export enum CURRENCIES_ROUTE_TYPE {
@@ -12,4 +12,4 @@ export enum CURRENCIES_ROUTE_TYPE {
 
 export type TCurrenciesRouteState = {
   type: CURRENCIES_ROUTE_TYPE;
-}
+};

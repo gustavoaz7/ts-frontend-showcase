@@ -1,15 +1,10 @@
 import React, { FC } from 'react';
-import {
-  BrowserRouter,
-  Switch,
-  Route,
-} from "react-router-dom";
-import { CurrencyList } from './pages/currency-list'
-import { Home } from './pages/home'
-import { Themes } from './pages/themes'
-import { Options } from './pages/options'
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { CurrencyList } from './pages/currency-list';
+import { Home } from './pages/home';
+import { Themes } from './pages/themes';
+import { Options } from './pages/options';
 import { ROUTES } from './config/routes';
-
 
 export const Router: FC = () => (
   <BrowserRouter>

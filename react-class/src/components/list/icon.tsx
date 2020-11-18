@@ -6,7 +6,7 @@ type IconProps = {
   visible?: boolean;
   checkmark?: boolean;
   color?: string;
-}
+};
 
 export const Icon: FC<IconProps> = ({
   visible = false,
@@ -18,15 +18,11 @@ export const Icon: FC<IconProps> = ({
   }
 
   return (
-    <StyledIcon color={color}>
-      {checkmark && (
-        <Check src={check} />
-      )}
-    </StyledIcon>
+    <StyledIcon color={color}>{checkmark && <Check src={check} />}</StyledIcon>
   );
 };
 
-const StyledIcon = styled.div<{color?: string}>`
+const StyledIcon = styled.div<{ color?: string }>`
   background-color: ${({ color }) => color};
   width: 30px;
   height: 30px;

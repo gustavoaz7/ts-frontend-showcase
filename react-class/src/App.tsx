@@ -1,16 +1,15 @@
 import React, { FC } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { ThemeProvider, createGlobalStyle } from 'styled-components'
+import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import { themeVariantSelector } from './redux/selectors/theme-variant';
 import { RootState } from './redux/store';
 import { Router } from './router';
 import { getTheme } from './config/themes';
 import { ErrorBoundary } from './components/error-boundary';
 
-
 const mapState = (state: RootState) => ({
   themeVariant: themeVariantSelector(state),
-})
+});
 
 const connector = connect(mapState);
 

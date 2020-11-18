@@ -1,9 +1,8 @@
 import React, { FC } from 'react';
-import styled from 'styled-components'
-import { Link } from "react-router-dom";
-import gear from '../assets/gear.png'
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import gear from '../assets/gear.png';
 import { ROUTES } from '../config/routes';
-
 
 export const Header: FC = () => (
   <Container to={ROUTES.OPTIONS}>
