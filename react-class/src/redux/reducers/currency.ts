@@ -13,7 +13,6 @@ export type CurrencyState = Readonly<{
   error: Error | null;
   conversions: {
     [key in TCurrencies]?: {
-      isFetching: boolean;
       base: string;
       date: string;
       rates: {
@@ -59,6 +58,7 @@ export const currencyReducer: Reducer<CurrencyState, CurrencyActions> = (
       return {
         ...state,
         loading: false,
+        error: null,
         baseCurrency: action.payload.base,
         conversions: {
           ...state.conversions,

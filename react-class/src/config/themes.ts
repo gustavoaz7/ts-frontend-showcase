@@ -14,16 +14,18 @@ export type TTheme = {
     lightGray: string;
     gray: string;
     darkGray: string;
+    error: string;
   };
 };
 
 const sharedColors: Pick<
   TTheme['colors'],
-  'lightGray' | 'gray' | 'darkGray'
+  'lightGray' | 'gray' | 'darkGray' | 'error'
 > = {
   lightGray: '#F0F0F0',
   gray: '#979797',
   darkGray: '#797979',
+  error: '#E74C3C',
 };
 
 export const blueTheme: TTheme = {

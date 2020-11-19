@@ -10,6 +10,8 @@ export const quoteCurrencySelector = (state: RootState) =>
 
 export const amountSelector = (state: RootState) => selector(state).amount;
 
+export const loadingSelector = (state: RootState) => selector(state).loading;
+
 export const errorSelector = (state: RootState) => selector(state).error;
 
 export const conversionsSelector = (state: RootState) =>

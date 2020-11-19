@@ -14,6 +14,8 @@ import {
   baseCurrencySelector,
   quoteCurrencySelector,
   conversionsSelector,
+  errorSelector,
+  loadingSelector,
 } from '../redux/selectors/currency';
 import { CURRENCIES_ROUTE_TYPE, ROUTES } from '../config/routes';
 import {
@@ -21,12 +23,15 @@ import {
   swapCurrencyThunk,
 } from '../redux/thunks/currency';
 import { Loading } from '../components/loading';
+import { Alert } from '../components/alert';
 
 const mapState = (state: RootState) => ({
   amount: amountSelector(state),
   baseCurrency: baseCurrencySelector(state),
   quoteCurrency: quoteCurrencySelector(state),
   rates: conversionsSelector(state),
+  error: errorSelector(state),
+  loading: loadingSelector(state),
 });
 
 const mapDispatch = {
@@ -67,17 +72,20 @@ class HomeClass extends Component<HomeProps, unknown> {
       amount,
       rates,
       swapCurrency,
+      loading,
+      error,
     } = this.props;
     const conversionSelector = rates[baseCurrency];
     const conversionDate = new Date(conversionSelector?.date ?? Date.now());
     const conversionRate: number =
       conversionSelector?.rates?.[quoteCurrency] ?? 0;
     const quotePrice = (amount * conversionRate).toFixed(2);
-    const showLoading = !conversionSelector || conversionSelector.isFetching;
+    const showAlert = error || !conversionSelector;
 
     return (
       <Wrapper>
-        {showLoading && <Loading overlay />}
+        {loading && <Loading overlay />}
+        {showAlert && <Alert message="Failed retrieving currency rates." />}
         <Header />
         <Logo />
         <CurrencyInput
