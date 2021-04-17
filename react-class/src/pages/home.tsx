@@ -80,12 +80,11 @@ class HomeClass extends Component<HomeProps, unknown> {
     const conversionRate: number =
       conversionSelector?.rates?.[quoteCurrency] ?? 0;
     const quotePrice = (amount * conversionRate).toFixed(2);
-    const showAlert = error || !conversionSelector;
 
     return (
       <Wrapper>
         {loading && <Loading overlay />}
-        {showAlert && <Alert message="Failed retrieving currency rates." />}
+        {error && <Alert message="Failed retrieving currency rates." />}
         <Header />
         <Logo />
         <CurrencyInput
