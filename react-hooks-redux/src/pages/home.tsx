@@ -3,7 +3,7 @@ import styled, { withTheme } from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import { Logo } from '../components/logo';
 import { CurrencyInput } from '../components/currency-input';
-import { ClearButton } from '../components/clear-button';
+import { Button } from '../components/button';
 import { LastConverted } from '../components/last-converted';
 import { Header } from '../components/header';
 import { changeCurrencyAmountAC } from '../redux/actions/currency';
@@ -23,6 +23,7 @@ import {
 import { Loading } from '../components/loading';
 import { Alert } from '../components/alert';
 import { useAppDispatch } from '../redux/hooks';
+import logo from '../assets/logo.png';
 
 export function Home() {
   const dispatch = useAppDispatch();
@@ -94,7 +95,10 @@ export function Home() {
         rate={conversionRate}
         date={conversionDate}
       />
-      <StyledClearButton text="Reverse Currencies" onClick={swapCurrency} />
+      <SwapButton onClick={swapCurrency}>
+        <Image src={logo} />
+        <span>Reverse Currencies</span>
+      </SwapButton>
     </Wrapper>
   );
 }
@@ -109,6 +113,14 @@ const Wrapper = withTheme(styled.div`
   background-color: ${({ theme }) => theme.colors.primary};
 `);
 
-const StyledClearButton = styled(ClearButton)`
+const SwapButton = styled(Button)`
   margin-top: 10px;
+  display: flex;
+  align-items: center;
+`;
+
+const Image = styled.img`
+  width: 20px;
+  height: 20px;
+  margin: 10px;
 `;

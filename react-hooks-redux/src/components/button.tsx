@@ -1,28 +1,24 @@
 import React, { FC, MouseEvent } from 'react';
 import styled, { withTheme } from 'styled-components';
-import logo from '../assets/logo.png';
 
-type ClearButtonProps = {
-  text: string;
+type ButtonProps = {
   onClick(event: MouseEvent): void;
   className?: string;
 };
 
-export const ClearButton: FC<ClearButtonProps> = ({
-  text,
+export const Button: FC<ButtonProps> = ({
   onClick = () => {},
   className,
+  children,
 }) => (
-  <Button onClick={onClick} className={className}>
-    <Container>
-      <Image src={logo} />
-      <span>{text}</span>
-    </Container>
-  </Button>
+  <StyledButton onClick={onClick} className={className}>
+    {children}
+  </StyledButton>
 );
 
-const Button = withTheme(styled.div`
+const StyledButton = withTheme(styled.div`
   cursor: pointer;
+  user-select: none;
   align-items: center;
   border: 1px solid ${({ theme }) => theme.colors.secondary};
   border-radius: 4px;
@@ -35,14 +31,3 @@ const Button = withTheme(styled.div`
     background-color: rgba(255, 255, 255, 0.5);
   }
 `);
-
-const Container = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const Image = styled.img`
-  width: 20px;
-  height: 20px;
-  margin: 10px;
-`;

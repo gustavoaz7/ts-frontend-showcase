@@ -4,7 +4,7 @@ import styled, { withTheme } from 'styled-components';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { Logo } from '../components/logo';
 import { CurrencyInput } from '../components/currency-input';
-import { ClearButton } from '../components/clear-button';
+import { Button } from '../components/button';
 import { LastConverted } from '../components/last-converted';
 import { Header } from '../components/header';
 import { RootState } from '../redux/store';
@@ -12,6 +12,7 @@ import { CURRENCIES_ROUTE_TYPE, ROUTES } from '../config/routes';
 import { currencySelectors, currencyActions } from '../redux/currency';
 import { Loading } from '../components/loading';
 import { Alert } from '../components/alert';
+import logo from '../assets/logo.png';
 
 const mapState = (state: RootState) => ({
   amount: currencySelectors.amountSelector(state),
@@ -93,7 +94,10 @@ class HomeClass extends Component<HomeProps, unknown> {
           rate={conversionRate}
           date={conversionDate}
         />
-        <StyledClearButton text="Reverse Currencies" onClick={swapCurrency} />
+        <SwapButton onClick={swapCurrency}>
+          <Image src={logo} />
+          <span>Reverse Currencies</span>
+        </SwapButton>
       </Wrapper>
     );
   }
@@ -111,6 +115,14 @@ const Wrapper = withTheme(styled.div`
   background-color: ${({ theme }) => theme.colors.primary};
 `);
 
-const StyledClearButton = styled(ClearButton)`
+const SwapButton = styled(Button)`
   margin-top: 10px;
+  display: flex;
+  align-items: center;
+`;
+
+const Image = styled.img`
+  width: 20px;
+  height: 20px;
+  margin: 10px;
 `;
