@@ -36,27 +36,30 @@ type CurrencyListProps = ConnectedProps<typeof connector> &
   ThemeProps<DefaultTheme>;
 
 class CurrencyListClass extends Component<CurrencyListProps, unknown> {
-  CURRENCIES_MAP = {
-    action: {
-      [CURRENCIES_ROUTE_TYPE.BASE]: this.props.changeBaseCurrency,
-      [CURRENCIES_ROUTE_TYPE.QUOTE]: this.props.changeQuoteCurrency,
-    },
-    selector: {
-      [CURRENCIES_ROUTE_TYPE.BASE]: this.props.baseCurrency,
-      [CURRENCIES_ROUTE_TYPE.QUOTE]: this.props.quoteCurrency,
-    },
+  CURRENCY_MAP: Record<CURRENCIES_ROUTE_TYPE, TCurrencies> = {
+    [CURRENCIES_ROUTE_TYPE.BASE]: this.props.baseCurrency,
+    [CURRENCIES_ROUTE_TYPE.QUOTE]: this.props.quoteCurrency,
+  };
+
+  CHANGE_CURRENCY_MAP: Record<
+    CURRENCIES_ROUTE_TYPE,
+    (c: TCurrencies) => unknown
+  > = {
+    [CURRENCIES_ROUTE_TYPE.BASE]: this.props.changeBaseCurrency,
+    [CURRENCIES_ROUTE_TYPE.QUOTE]: this.props.changeQuoteCurrency,
   };
 
   handleCurrencyClick = (currency: TCurrencies) => {
     const { location, history } = this.props;
 
-    this.CURRENCIES_MAP.action[location.state.type](currency);
+    this.CHANGE_CURRENCY_MAP[location.state.type](currency);
     history.goBack();
   };
 
   render() {
     const { location, theme } = this.props;
-    const selectedCurrency = this.CURRENCIES_MAP.selector[location.state.type];
+    const selectedCurrency = this.CURRENCY_MAP[location.state.type];
+
     return (
       <Container>
         {currencies.map((currency, i) => (
