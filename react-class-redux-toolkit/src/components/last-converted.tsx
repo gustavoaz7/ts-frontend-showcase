@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { format } from 'date-fns';
 import { TCurrencies } from '../config/currencies';
 
 type LastConvertedProps = {
@@ -18,10 +17,9 @@ export const LastConverted: FC<LastConvertedProps> = ({
 }) => (
   <Container>
     <span>
-      {`1 ${base} = ${rate.toFixed(5)} ${quote} as of ${format(
-        date,
-        'MMM, dd, yyyy',
-      )}`}
+      {`1 ${base} = ${rate.toFixed(
+        5,
+      )} ${quote} as of ${Intl.DateTimeFormat().format(date)}`}
     </span>
   </Container>
 );
