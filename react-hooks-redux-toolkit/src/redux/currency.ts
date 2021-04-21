@@ -7,6 +7,7 @@ import {
 import { TCurrencies, TCurrencyApi } from '../config/currencies';
 import type { RootState } from './store';
 import { getCurrencyConversions } from '../services/currency';
+import { useAppSelector } from './hooks';
 
 const SLICE_NAME = '@@CURRENCY';
 
@@ -42,7 +43,7 @@ const getConversions = createAsyncThunk<
   { state: RootState; rejectValue: string }
 >(SLICE_NAME, async (payload, { getState, rejectWithValue }) => {
   const state = getState();
-  const hasCurrentConversion = conversionsSelector(state)[payload];
+  const hasCurrentConversion = state.currency.conversions[payload];
   if (hasCurrentConversion) return hasCurrentConversion;
 
   try {
@@ -60,7 +61,7 @@ const swap = (): ThunkAction<void, RootState, undefined, Action> => (
 ) => {
   dispatch(currencySlice.actions.swap_internal());
   const state = getState();
-  const newBase = baseCurrencySelector(state);
+  const newBase = state.currency.baseCurrency;
   dispatch(getConversions(newBase));
 };
 
@@ -132,26 +133,28 @@ export const currencyActions = {
 
 // SELECTOR
 
-const selector = (state: RootState) => state.currency;
+const useBaseCurrencySelector = () =>
+  useAppSelector((state) => state.currency.baseCurrency);
 
-const baseCurrencySelector = (state: RootState) => selector(state).baseCurrency;
+const useQuoteCurrencySelector = () =>
+  useAppSelector((state) => state.currency.quoteCurrency);
 
-const quoteCurrencySelector = (state: RootState) =>
-  selector(state).quoteCurrency;
+const useAmountSelector = () =>
+  useAppSelector((state) => state.currency.amount);
 
-const amountSelector = (state: RootState) => selector(state).amount;
+const useLoadingSelector = () =>
+  useAppSelector((state) => state.currency.loading);
 
-const loadingSelector = (state: RootState) => selector(state).loading;
+const useErrorSelector = () => useAppSelector((state) => state.currency.error);
 
-const errorSelector = (state: RootState) => selector(state).error;
-
-const conversionsSelector = (state: RootState) => selector(state).conversions;
+const useConversionsSelector = () =>
+  useAppSelector((state) => state.currency.conversions);
 
 export const currencySelectors = {
-  baseCurrencySelector,
-  quoteCurrencySelector,
-  amountSelector,
-  loadingSelector,
-  errorSelector,
-  conversionsSelector,
+  useBaseCurrencySelector,
+  useQuoteCurrencySelector,
+  useAmountSelector,
+  useLoadingSelector,
+  useErrorSelector,
+  useConversionsSelector,
 };
